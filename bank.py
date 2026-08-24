@@ -3,7 +3,7 @@ from account_type import AccountType
 from customer import Customer
 
 class Bank(): 
-    def __init__(self, name: str, account_types: list[AccountType], customers: list[Customer]): 
+    def __init__(self, name: str, account_types: list[AccountType] = [], customers: list[Customer] =[]): 
         self.name = name 
         self.account_types = account_types 
         self.customers = customers.sort(key=lambda x: int(x.get_account_number()))  
@@ -24,7 +24,7 @@ class Bank():
         self.account_types.append(self.__new_account_type)
 
 
-    def add_customer(self, Customer_person: Customer): 
+    def add_customer(self): 
         self.name_customer = input("Name of customer:") 
 
         if not self.name_customer.isalpha():  
@@ -32,10 +32,10 @@ class Bank():
 
         self.age_customer = input("Age of Customer:") 
 
-        if not self.age.isdigit():  
+        if not self.age_customer.isdigit():  
             raise ValueError("Only use postive integers for age")
 
-        self.age = int(self.age)
+        self.age = int(self.age_customer)
         self.initial_deposit = input("Initial deposit:")
 
         try: 
@@ -43,7 +43,7 @@ class Bank():
             if self.initial_deposit <= 0: 
                 raise ValueError("Initial deposit must be greater than zero")
         except ValueError: 
-            raise ValueError  
+            raise ValueError("Initial deposit must be greater than zero and numerical") 
 
         self.account_type_customer = input("Enter code of account type:").strip().upper()
 
@@ -99,8 +99,10 @@ class Bank():
         
 
 
-    def display_customers(self, customer_list : list[Customer] = self.customers): 
-
+    def display_customers(self, customer_list : list[Customer] = []): 
+        if customer_list == []: customer_list = self.customers 
+        if not self.customers: raise TypeError(f"{self.name} has 0 customers") 
+        
         for index,c in enumerate(customer_list):  
             print(f"Customer {index+1}")
             print(f"Account Number: {c.get_account_number()}")  
