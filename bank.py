@@ -8,8 +8,21 @@ class Bank():
         self.account_types = account_types 
         self.customers = customers.sort(key=lambda x: int(x.get_account_number()))  
 
-    def add_account_type(self, AccountType): 
-        pass 
+    def add_account_type(self): 
+        self.name_account = input("Name of New Account Type:") 
+
+        if not self.name_account.isalpha():  
+            raise ValueError("Only use letters of the alphabet")
+
+        self.code_account = input("Code of New Account Type:").strip().upper()
+        self.description = input("Brief description of Account Type:") 
+
+        print("Creating Account Type...")
+
+        self.__new_account_type = AccountType(self.name_account,self.code_account,self.description)
+
+        self.account_types.append(self.__new_account_type)
+
 
     def add_customer(self, Customer_person: Customer): 
         self.name_customer = input("Name of customer:") 
@@ -32,13 +45,28 @@ class Bank():
         except ValueError: 
             raise ValueError  
 
+        self.account_type_customer = input("Enter code of account type:").strip().upper()
+
+        #Search for account type 
+
+        for x in self.account_types:  
+            if x.get_code() == self.account_type_customer: 
+                found_type = x
+                break 
+        else: 
+            raise IndexError("Could not find code for valid account type")
+
+        
+
+
         print("Adding customer...")
 
-        customer_to_add = Customer(self.name_customer,self.age_customer,self.initial_deposit)
+        customer_to_add = Customer(self.name_customer,self.age_customer,self.initial_deposit,found_type)
            
 
         bisect.insort_right(self.customers, customer_to_add, key=lambda x: int(x.get_account_number()))
 
+        print("Customer succesfully added")
 
     def find_customer(self, account_number: str): 
         
@@ -75,7 +103,8 @@ class Bank():
 
         for index,c in enumerate(customer_list):  
             print(f"Customer {index+1}")
-            print(f"Account Number: {c.get_account_number()}") 
+            print(f"Account Number: {c.get_account_number()}")  
+            print(f"Account Type: {c.get_account_type()}")
             print(f"Name: {c.get_name()}") 
             print(f"Age: {c.get_age()}") 
             print(f"Account Balance: {c.get_balance()}")  
