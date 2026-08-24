@@ -8,7 +8,7 @@ class Customer:
         self.age = age 
         self.initial_depsoit = initial_deposit  
         self.__account_number = str(randbelow(account_bounds[0],account_bounds[1]))
-        self.__balance = 0.0  
+        self.__balance = initial_deposit 
 
         if self.initial_deposit < 0: 
             raise ValueError("Initial deposit cannot be negative")  
@@ -38,7 +38,13 @@ class Customer:
             raise ValueError("Insuffcient funds") 
         
         recipient.__balance += amount 
-        self.__balance -= amount  
+        self.__balance -= amount   
+
+    def get_name(self): 
+        return self.name 
+
+    def get_age(self): 
+        return self.age
 
     
     
