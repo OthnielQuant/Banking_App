@@ -29,7 +29,18 @@ class Customer:
         if amount <= 0:  
             raise ValueError("Withdrawl must be greater than zero")   
         elif amount > self.__balance: 
-            raise ValueError("Withdrawal cannot exceed available balance")
+            raise ValueError("Withdrawal cannot exceed available balance") 
+
+    def make_transfer(self, amount: float, recipient): 
+        #I'm not sure this will work 
+
+        if amount > self.__balance: 
+            raise ValueError("Insuffcient funds") 
+        
+        recipient.__balance += amount 
+        self.__balance -= amount  
+
+    
     
 
         
