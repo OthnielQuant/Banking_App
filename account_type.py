@@ -21,15 +21,15 @@ class AccountType(Abstract_Account):
         return self.description
 
 class SavingsAccount(AccountType): 
-    def __int__(self):
-        super().__init__()  
+    def __int__(self, name, code):
+        super().__init__(name, code)  
 
     def get_account_description(self):  
         return self.description   
 
 class CurrentAccount(AccountType): 
-    def __init__(self): 
-        super().__init__()  
+    def __int__(self, name, code):
+        super().__init__(name, code) 
 
     def get_account_description(self):  
         return self.description 

@@ -18,7 +18,7 @@ class Bank():
         else: 
             raise ValueError(f"Incorrect code {code} given")
 
-        self.account_types.append(type_account)
+        self.account_types.append(type_account) 
 
 
     def add_customer(self, bank): 
@@ -26,7 +26,8 @@ class Bank():
         self.customers.append(customer_to_add)
 
     def find_customer(self, account_number: str): 
-        
+        if not self.customers: raise ValueError(f"{self.name} has 0 customers") 
+
         for cust in self.customers: 
             num = cust.get_account_number() 
 
@@ -46,13 +47,18 @@ class Bank():
     def get_account_types(self): 
         return self.account_types 
 
+    def get_length_customers(self): 
+        """Return the number of customers currently registered with the bank."""
+        return len(self.customers)
 
+   
+    
     def display_customers(self, customer_list : list[Customer] = []): 
         if customer_list == []: customer_list = self.customers 
         if not self.customers: raise TypeError(f"{self.name} has 0 customers") 
         
         for index,c in enumerate(customer_list):  
-            print(f"Customer {index+1}")
+            print(f"\nCustomer {index+1}")
             print(f"Account Number: {c.get_account_number()}")  
             print(f"Account Type: ({c.get_account_type().get_code()}) {c.get_account_type().get_name()}")
             print(f"Name: {c.get_name()}") 

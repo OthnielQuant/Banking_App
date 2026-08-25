@@ -79,7 +79,11 @@ class Customer:
         #I'm not sure this will work 
 
         if amount > self.__balance: 
-            raise ValueError("Insuffcient funds") 
+            raise ValueError("Insuffcient funds")  
+
+        if amount <= 0:  
+            raise ValueError("Amount cannot be less than or equal to 0")
+
         
         recipient.deposit(amount) 
         self.__balance -= amount   
