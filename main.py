@@ -14,7 +14,7 @@ bank = Bank(text)
 
 
 
-choices = ["Add Customer","Find Customer","Deposit Money","Withdraw Money","Transfer Money","Display All Customers","Delete Customer","Exit"]
+choices = ["Add Customer","Find Customer","Deposit Money","Withdraw Money","Transfer Money","Display All Customers","Delete Customer","Add Account Type","Exit"]
 while True:  
     try: 
         print(text.center(columns))
@@ -22,7 +22,7 @@ while True:
         select = input("Choose your action:") 
 
         if select == "1": 
-            bank.add_customer()
+            bank.add_customer(bank)
         elif select == "2": 
             pass 
         elif select == "3": 
@@ -36,6 +36,10 @@ while True:
         elif select == "7":
             pass 
         elif select == "8": 
+            code = input("Savings (SAV) or Current (CUR):") 
+            name = input("Name of the Account:")
+            bank.add_account_type(code,name)
+        elif select == "9": 
             exit("\n"+"GOODBYE".center(columns))  
         else: 
             print("Invalid command!\n") 
